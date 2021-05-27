@@ -1,0 +1,1068 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Flutter Codelab #3 - Creating The Details Page - Building Layouts in Flutter (Workshop)</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="flutter-codelab3"
+                  title="Flutter Codelab #3 - Creating The Details Page - Building Layouts in Flutter (Workshop)"
+                  environment="web"
+                  feedback-link="https://romanjustcodes.web.app">
+    
+      <google-codelab-step label="Overview" duration="0">
+        <h2 is-upgraded>What You&#39;ll Build in this Codelab:</h2>
+<ul>
+<li>Create the Details Page</li>
+<li>Create the individual widgets that make up this page widget</li>
+<li>Dive into building UI layouts in Flutter using just core widgets</li>
+<li>More widget composition and other layout and structure strategies</li>
+</ul>
+<p class="image-container"><img alt="Details Page" src="img/3fd24c4740bda89e.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Initial Setup" duration="0">
+        <p>The following illustration shows a schematic view of the widget composition we&#39;ll accomplish while building the layout for our landing page widget:</p>
+<p class="image-container"><img alt="Details Page Schematics" src="img/b9c77b5a79f13156.png"></p>
+<p>We&#39;ll further break down each of the widgets depicted above for further breakdown and composition.</p>
+<p>Since we&#39;ll be developing this page further, we want our application to skip the splash screen while we work on it, so we will temporarily point the main application widget to this page.</p>
+<p>In the <strong>main</strong> method, comment out the <strong><em>SplashPage</em></strong> value assigned to the <strong>home</strong> property of the <strong>MaterialApp</strong> and add the <strong>DetailsPage</strong> instead, as shown below:</p>
+<p class="image-container"><img alt="main home DetailsPage" src="img/ccfe71c7744b8d2.png"></p>
+<aside class="warning"><p>This is just a temporary change while we develop this page. Once you&#39;re done, you should revert these changes. We haven&#39;t created the <strong>DetailsPage</strong> widget either, hence the error you might be seeing now. Don&#39;t fret about it, we&#39;ll create it in a minute.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Creating The Details Page Scaffold / Laying Down the Foundation" duration="0">
+        <p>Let&#39;s proceed.</p>
+<p>Right under the <strong>MountsApp</strong> class we created earlier, add a new class called <strong>DetailsPage</strong> that extends <a href="https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html" target="_blank"><strong>StatelessWidget</strong></a>.</p>
+<p>As always, override its <strong>build</strong> method, and for the common exercise to test that things are working and hooked up, return a <strong>Scaffold</strong> widget, and set its <strong>body</strong> property to a <strong>Center</strong> widget wrapping a <strong>Text</strong> widget, with the temporary content &#34;<strong>Details Page</strong>.</p>
+<aside class="special"><p>It is best practice to group related entities within the same area of code; in our case, I&#39;m adding all pages within a section demarcated by the comment &#34;//—PAGES—&#34; and so on. Add your new class there if possible - otherwise, at the end of the file is fine.</p>
+</aside>
+<p class="image-container"><img alt="DetailsPage" src="img/145cc4b01171f48f.png"></p>
+<p>If you run things as they are right now (by hitting <strong>Run</strong> on DartPad), things should look as follows:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/6afd13441a4cb1a.png"></p>
+<h3 is-upgraded>Building the Details Page widget structure</h3>
+<p>Let&#39;s kick things off by adding a background color to the <strong>Scaffold</strong> widget returned by the <strong>DetailsPage</strong> widget&#39;s <strong>build</strong> method:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/34d52553baa53ae4.png"></p>
+<p>Replace the contents of the <strong>body</strong> property by a <strong>Column</strong> widget. We&#39;ll split the content right down the middle (we&#39;ll add two regions - a top and a bottom), so in order to ensure each of the column&#39;s children get the same space, we&#39;ll wrap each child inside an <a href="https://api.flutter.dev/flutter/widgets/Expanded-class.html" target="_blank"><strong>Expanded</strong></a> widget.</p>
+<p>Let&#39;s do a quick test and add two <strong>Expanded</strong> widgets, each one wrapping a <strong>Text</strong> widget; I&#39;ll have the top one say &#34;Details Top&#34; and the bottom one say &#34;Details Bottom&#34;:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/85bdf3c061836586.png"></p>
+<p>Things should look as follows if we do a quick run on <strong>DartPad</strong>:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/7a6fa00e5bff32cf.png"></p>
+<p>And that&#39;s how you implement regions in your app with equally distributed space among them. The top region will be for the image, some text and the <strong>AppBar</strong>, and the bottom region will be for the rest of the content.</p>
+<p>In the next section, we&#39;ll focus only on the top region. Proceed by clicking <strong>Next</strong>.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Develop the top region of the Details Page" duration="0">
+        <p>This is a schematic view of the top region of the DetailsPage widget that we&#39;ll be developing:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/2a26b33cefa5cb01.png"></p>
+<p>This is the cross-section illustration of the same widget, how I usually visualize when using a layered approach (i.e. using a Stack with children) which is what we&#39;ll do for this instance.</p>
+<p class="image-container"><img alt="DetailsPage" src="img/cf3b16363408363d.png"></p>
+<p>Let&#39;s proceed!</p>
+<h3 is-upgraded>Getting a model for mocking the data on this page</h3>
+<p>Since we will be developing this page in isolation from the rest of the app for now, we need to have a way to bring the data that will hydrate this page. We&#39;ll fetch one of the items from the <strong>mountItems</strong> collection we created in a previous codelab and store that value within this widget (temporarily).</p>
+<p>In the <strong>build</strong> method of the <strong>DetailsPage</strong> widget, create a local variable called <strong>selectedItem</strong>, and assign to it the mount object at index 0.</p>
+<aside class="warning"><p>This is temporary; the data will be supplied from the <strong>MountsApp</strong> page when a user selects one of the mount items in its <strong>ListView</strong>.</p>
+</aside>
+<p class="image-container"><img alt="DetailsPage" src="img/46c6e9faf798ca30.png"></p>
+<p>Let&#39;s build the structure.</p>
+<p>Replace the contents of the top <strong>Expanded</strong> widget (the <strong>Text</strong> widget) by a <strong>Stack</strong> widget. Initialize it by setting its <strong>chidren</strong> property with an empty array.</p>
+<aside class="special"><p>A <a href="https://api.flutter.dev/flutter/widgets/Stack-class.html" target="_blank"><strong>Stack</strong></a> widget which will position its children relative to the edges of its box - great for overlapping children in a simple way.</p>
+</aside>
+<p class="image-container"><img alt="DetailsPage" src="img/c7485ed727ff0a91.png"></p>
+<aside class="special"><p>From this point forward, the code will focus only on the top <strong>Expanded</strong> widget and its structure, for brevity and space.</p>
+</aside>
+<p>Let&#39;s add the background image. We&#39;ll use a <strong>Container</strong> widget, with the following specs:</p>
+<ul>
+<li>padding: 30px all around</li>
+<li>decoration: use a <strong>BoxDecoration</strong> object to set its <strong>image</strong> property to a <strong>DecorationImage</strong>, which will provide the capability to set a background image to this <strong>Container</strong>. Set the <strong>DecorationImage</strong>&#39;s <strong>image</strong> property to be a <strong>NetworkImage</strong> widget,</li>
+</ul>
+<p class="image-container"><img alt="DetailsPage" src="img/68cd418ab76bed5a.png"></p>
+<p>Hitting <strong>Run</strong> at this point on DartPad will yield the following result:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/99327a13d95308ed.png"></p>
+<p>Notice how the Stack, which wraps the image, and itself is wrapped by an <strong>Expanded</strong> widget, takes up the whole top half of the column, as expected.</p>
+<p>Let&#39;s continue overlapping the rest of the children.</p>
+<p>We&#39;ll add a bit of gradient at the bottom of the <strong>Stack</strong> so when we place the text content, we can read it better and provide better contrast. We want the gradient to start at the bottom and stops at the center of the <strong>Stack</strong> with a smooth transition from opaque black to transparent.</p>
+<p>Add a <strong>Positioned</strong> widget as the second child of the <strong>Stack</strong>, using the <strong>fill</strong> constructor (which makes it stretch and fill the whole <strong>Stack</strong> space since by default it has its left, top, right and bottom set to 0.0):</p>
+<p class="image-container"><img alt="DetailsPage" src="img/2879e002ee971fae.png"></p>
+<p>The child of this <strong>Positioned</strong> widget will be a <strong>Container</strong>, which will supply the gradient effect using its <strong>decoration</strong> property.</p>
+<p>For the <strong>decoration</strong> property, use the <strong>BoxDecoration</strong> object&#39;s <strong>gradient</strong> property. Set it to be a <strong>LinearGradient</strong> object, where you supply the following:</p>
+<ul>
+<li>colors: set it to be an array of colors:  <ul>
+<li>transparent (<strong><em>Colors.transparent</em></strong>)</li>
+<li>black with a 0.7 opacity (<strong><em>Colors.black.withOpacity(0.7)</em></strong>)</li>
+</ul>
+</li>
+<li>begin: <strong><em>Alignment.center</em></strong> (so the gradient starts at the center of the container)</li>
+<li>end: <strong><em>Alignment.bottomCenter</em></strong> (so the gradient ends at the bottom / center of the container)</li>
+</ul>
+<p>Your code should look like this afterwards:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/ccc3289a910720f8.png"></p>
+<p>Now, lets add the text on top of the gradient.</p>
+<p>The text content as seen in the design, are positioned at the bottom left corner of the <strong>Stack</strong>, so we&#39;ll do just that.</p>
+<p>First, add a <strong>Positioned</strong> widget (below the <strong>Positioned.fill</strong> widget added earlier), aligned 30px from the bottom and 30px from the left of the <strong>Stack</strong>, and as its child, add a <strong>Column</strong> widget:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/36049bcaaabda97.png"></p>
+<p>The column&#39;s children will be two <strong>Text</strong> widgets, left aligned on the column.</p>
+<p>First <strong>Text</strong> widget will hold the name of the selected item (from the local variable <strong><em>selectedItem.name</em></strong>), with font size of 20px, color white, and font weight of bold.</p>
+<p>Second <strong>Text</strong> widget will hold the location of the selected item (from <strong><em>selectedItem.location</em></strong>), with font size of 20px, and color white.</p>
+<p class="image-container"><img alt="DetailsPage" src="img/47503fc5a1c1e014.png"></p>
+<p>Testing it on DartPad, it should look like this so far:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/9614fcfb01e9f63a.png"></p>
+<p>Let&#39;s continue by adding the <strong>AppBar</strong> widget.</p>
+<p>Yes - you might be wondering &#34;why are we adding the <strong>AppBar</strong> as a child to the <strong>Stack</strong> as opposed to where it usually goes - as the appBar of the <strong>Scaffold</strong> widget?&#34;. Well, adding it to the <strong>Scaffold</strong> will also add it at the top of the screen, but will devote a fixed space at the top of the screen and won&#39;t allow items to overlap it or show through.</p>
+<aside class="special"><p>The cool trick of adding an <strong>AppBar</strong> widget to a <strong>Stack</strong> is that regardless of the order in which you add it to the stack, it always anchors itself to the top!</p>
+</aside>
+<p>Add an <strong>AppBar</strong> widget as a child of the <strong>Stack</strong> widget, with the following specs:</p>
+<ul>
+<li>elevation: 0</li>
+<li>backgroundColor: transparent</li>
+<li>iconTheme: use an *<strong>IconThemeData</strong> object, and set its <strong>color</strong> property to white.</li>
+</ul>
+<p class="image-container"><img alt="DetailsPage" src="img/256cfd08ec2c6d7b.png"></p>
+<p>As in the <strong>AppBar</strong> widget of the <strong>MountsApp</strong> page widget, we&#39;ll set its <strong>title</strong> property to be an <strong>Icon</strong> widget, wrapped inside a <strong>Center</strong> widget, as follows:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/2f98b5daf791d15e.png"></p>
+<p>We&#39;ll add a mocked action item to the <strong>AppBar</strong> widget (no functionality, just a placeholder), just to show you how you can utilize the <strong>AppBar</strong> widget&#39;s <a href="https://api.flutter.dev/flutter/material/AppBar/actions.html" target="_blank"><strong>actions</strong></a> property.</p>
+<aside class="special"><p>The <a href="https://api.flutter.dev/flutter/material/AppBar/actions.html" target="_blank">actions</a> is just a way to add a list of widgets to display after the <strong>title</strong> widget, useful for representing common operations easily accessible.</p>
+</aside>
+<p>We&#39;ll add a <strong>Container</strong> widget with 10px of right margin, wrapping an <strong>Icon</strong> widget, color white with a size of 30px:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/528cb0a3c1e3a124.png"></p>
+<p>Last, but not least, let&#39;s clip the bottom edges of the <strong>Stack</strong> as a whole and give it round edges, in order to match our design.</p>
+<p>Wrap the whole <strong>Stack</strong> widget inside a <strong>ClipRRect</strong> (as the name implies, it will clip its contents in a &#34;rounded rectangle&#34;). Clip only the bottom left and bottom right corners by using the <strong>BorderRadius.only</strong> and setting the <strong>bottomLeft</strong> and <strong>bottomRight</strong> properties respectively:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/b1e60f3c15667a0d.png"></p>
+<p>Previewing on DartPad after hitting <strong>Run</strong> should yield the following result:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/896d3a45991d6102.png"></p>
+<p>Looking good! This was a great step, because you learned the following:</p>
+<ul>
+<li>how to use the <strong>Stack</strong> widget as a way to overlap widgets</li>
+<li>using the various options of <strong>Positioned</strong> widgets to place things inside a <strong>Stack</strong></li>
+<li>overlaying an <strong>AppBar</strong> on top of other widgets</li>
+<li>clipping widgets using <strong>ClipRRect</strong></li>
+</ul>
+<p>And with that, we&#39;re done with the top region of the <strong>DetailsPage</strong> widget!.</p>
+<aside class="warning"><p>You might be thinking - &#34;wait, there&#39;s one of the icons missing from the design - the left chevron at the top left corner!&#34;. This is by design - the left chevron only appears when you have navigated to a page from a previous one, and it displays automatically so users can go back to the previous one. We&#39;ll see it come to live once we hook up the navigation into this page, so stay tuned!</p>
+</aside>
+<p>Click <strong>Next</strong> when you&#39;re ready for the next step.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Develop the bottom region of the Details Page" duration="0">
+        <p>Let&#39;s now focus on the bottom region of the <strong>DetailsPage</strong> widget, where the information of the selected mount is displayed.</p>
+<p class="image-container"><img alt="DetailsPage" src="img/57dea8ca9d3eea98.png"></p>
+<aside class="special"><p>Most of this layout is mocked, just to exercise UI layout and widget composition.</p>
+</aside>
+<p>The following illustration is the schematic view of the bottom region, and shows the widget composition and how we will tackle it.</p>
+<p class="image-container"><img alt="DetailsPage" src="img/8b6722f23813e53e.png"></p>
+<h3 is-upgraded>Working on the layout</h3>
+<aside class="special"><p>From this point forward, we&#39;ll focus on the second <strong>Expanded</strong> widget of the <strong>DetailsPage</strong> widget&#39;s main column, which represents bottom half of the screen.</p>
+</aside>
+<p>Let&#39;s start!</p>
+<p>Replace the existing content of the second <strong>Expanded</strong> widget (the <strong>Text</strong> widget) by a <strong>Column</strong> widget; the core layout will be column, laying out its children vertically. Initialize it by setting its <strong>children</strong> property to an empty array:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/deb24b38f39930ee.png"></p>
+<p>Now, let&#39;s add child widgets to this column.</p>
+<h3 is-upgraded>Creating the Details Rating Bar</h3>
+<p>The first child will be dealing with is this ratings bar which contains rating, price and open hours information. We&#39;ll make it into its own widget and we&#39;ll call it <strong>DetailsRatingBar</strong> for simplicity.</p>
+<p class="image-container"><img alt="DetailsPage" src="img/3c0aa663f2e26b7c.png"></p>
+<p>Add a placeholder widget as the first child of this column:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/d66f868cc077e7b.png"></p>
+<aside class="warning"><p>Remember not to worry about the squiggly red line under it - this widget doesn&#39;t exist yet - we&#39;ll create it now.</p>
+</aside>
+<p>Create a class under the <strong>WIDGETS</strong> section (if you didn&#39;t create this section, you can add it at the end of the file) and call it <strong>DetailsRatingBar</strong> as well. Override its <strong>build</strong> method and return a <strong>Container</strong> widget with a <strong>Text</strong> widget as a child; add the content &#34;Details Rating Bar&#34; to the <strong>Text</strong> widget:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/bdec71a49ae6c02.png"></p>
+<p>If you hit <strong>Run</strong> on DartPad, you should see the following:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/41042f59651e918d.png"></p>
+<h3 is-upgraded>Creating a quick model to feed this widget with data</h3>
+<p>Previously, we created Dart model classes and populated them with mocked data to generate layouts with semi-realistic data. This case won&#39;t be the exception but in this case we&#39;ll create a simple key-value pair list of dummy data to drive the values that hydrate this component.</p>
+<p>Inside the <strong>DetailsRatingBar</strong> class, on top of the <strong>build</strong> method, create a quick dictionary with key-value pairs; each entry&#39;s key will be the label, and the value - well, the value:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/24dc4fcc1cda51ef.png"></p>
+<p>Now let&#39;s develop the structure within this widget.</p>
+<p>Replace the content of the <strong>Container</strong> widget within the <strong>DetailsRatingBar</strong> by a <strong>Row</strong> widget. Add a padding of 10px all around to the <strong>Container</strong> as well:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/ec478ad9c65fcf3.png"></p>
+<p>We want the <strong>Row</strong>&#39;s children to be spaced out evenly, so set its <strong>mainAxisAlignment</strong> property to <strong>MainAxisAlignment.spaceEvenly</strong>:</p>
+<aside class="special"><p>From this point forward, the code will focus on the <strong>DetailsRatingBar</strong>&#39;s <strong>build</strong> method only, for brevity and space.</p>
+</aside>
+<p class="image-container"><img alt="DetailsPage" src="img/f306485b4ef74444.png"></p>
+<p>Let&#39;s populate the children of the <strong>Row</strong> widget based on the key-value pair dictionary we created above, and loop through its entries.</p>
+<p>Use the <a href="https://api.flutter.dev/flutter/dart-core/List/List.generate.html" target="_blank"><strong>List.generate</strong></a> constructor to facilitate things; use the <strong>sampleRatingData.values.length</strong> as the size of the list to loop against, and in the callback, return an empty <strong>Container</strong> widget as a placeholder:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/9f7220c3bf85b43f.png"></p>
+<p>Now, for each of the entries of the <strong>sampleRatingData</strong>, we&#39;ll generate a <strong>Container</strong> widget. Let&#39;s use the <strong>Container</strong> widget returned by this callback method and continue building on its structure.</p>
+<p>To this container, add padding of 20px all around, and margin of 10px all around as well:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/23c8eaf693a06526.png"></p>
+<p>We want to add border all around this <strong>Container</strong>, as well as rounded corners, via its <strong>decoration</strong> property:</p>
+<aside class="special"><p>From this point on, we&#39;ll focus on the widget structure of the returned <strong>Container</strong> from the <strong>List.generate</strong>&#39;s callback.</p>
+</aside>
+<p class="image-container"><img alt="DetailsPage" src="img/962b4cef240e6efa.png"></p>
+<p>As a child of this container, we&#39;ll add a <strong>Column</strong> widget - this column will hold the two <strong>Text</strong> widgets required to display the label (top) and value (bottom).</p>
+<p class="image-container"><img alt="DetailsPage" src="img/ac9fd94b7a32c1a3.png"></p>
+<p>Add the top <strong>Text</strong> widget and feed the current entry&#39;s <strong>key</strong>, color black, and bold.</p>
+<p>The bottom <strong>Text</strong> widget will get the current entry&#39;s <strong>value</strong>, with color of <strong>mainColor</strong>, font size of 15px and font weight of bold:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/3b5c8cd891635370.png"></p>
+<p>If you run the code as it stands right now, by hitting <strong>Run</strong> on DartPad, you should get the following output in the preview panel:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/cea54ed8e1dcf147.png"></p>
+<p>Neat! This was a quick component, fed using some quick mock data generated using key-value pairs from a dictionary, and we proved how easy it is to generate layouts driven by collections with mock data.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Creating the Title and Description structure" duration="0">
+        <p>Let&#39;s dissect the following structure, which is what we&#39;ll be building next:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/a4e8ca944d0c2929.png"></p>
+<p>Moving down the widget tree that we have in the design, now it&#39;s the turn of the title and description widgets, which will be accomplished by two <strong>Text</strong> widgets laid out as a column. We want these two widgets to occupy most of the real estate of the bottom half region of this page, so we&#39;ll wrap their <strong>Column</strong> widget inside an <strong>Expanded</strong> widget.</p>
+<p>Back in the <strong>DetailsPage</strong> widget, start by adding the <strong>Expanded</strong> widget, right under the <strong>DetailsRatingBar</strong> widget we just created:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/3bb2bc5c2b99449.png"></p>
+<p>Now, let&#39;s focus on building the structure for this section.</p>
+<aside class="special"><p>From this point on, we&#39;ll focus on the widgets inside the <strong>Expanded</strong> widget, so we&#39;ll omit the rest of the code for brevity and space</p>
+</aside>
+<p>For this <strong>Expanded</strong> widget, add its one and only widget, a <strong>Column</strong> widget - the one that will hold the title and description:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/7f4ea5f113c6edab.png"></p>
+<p>Let&#39;s add the first <strong>Text</strong> widget, whose content will be fed from the local variable we set up earlier (<strong><em>selectedItem</em></strong>) and its property called <strong>name</strong>. Set the following properties of the <strong>Text</strong> widget as follows:</p>
+<ul>
+<li><strong>textAlign</strong> to <strong>TextAlign.left</strong></li>
+<li><strong>style</strong>:  <ul>
+<li><strong>color</strong> to black</li>
+<li><strong>fontSize</strong> to 20px</li>
+<li><strong>fontWeight</strong> to bold</li>
+</ul>
+</li>
+</ul>
+<p>While displaying the <strong>selectedItem.name</strong> content, use <strong><em>variable interpolation</em></strong> and add the text &#34;About&#34; in front of whatever comes out of the <strong>name</strong> property (i.e. ‘About ${selectedItem.name}&#39;).</p>
+<p class="image-container"><img alt="DetailsPage" src="img/2b8277e56260b0bc.png"></p>
+<p>To give it some breathing room, wrap the <strong>Text</strong> widget inside a <strong>Padding</strong> widget, with left, right and bottom padding of 20px:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/f192487a44f44c0c.png"></p>
+<p>For the <strong>description</strong> content, add another <strong>Text</strong> widget, font size of 12px, but this time, wrap it inside another <strong>Padding</strong> widget, to match the title spacing above (left, right, and bottom padding of 20px):</p>
+<p class="image-container"><img alt="DetailsPage" src="img/b235149b6bb3068e.png"></p>
+<p>If you take it for a spin on DartPad, you&#39;ll see now both the title and description, with proper padding around them, under the <strong>DetailsRatingBar</strong> widget, as we expected:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/d046c6d4fc9eaa85.png"></p>
+<p>Sweet! We&#39;re done with the content, and now we&#39;ll proceed with the bottommost portion of the <strong>DetailsPage</strong> widget.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Creating the Details Bottom Actions Panel" duration="0">
+        <p>To wrap up the layout of the <strong>DetailsPage</strong>  widget we&#39;ll tackle the button panel at the bottom of our design:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/2b2e95822f95994.png"></p>
+<p>Dissecting this same widget, we can check its widget composition and appreciate clearly how it is composed, as shown on the following illustration:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/9b3da10c227b650b.png"></p>
+<p>Let&#39;s get to work!</p>
+<h3 is-upgraded>Creating the placeholder widget for the DetailsBottomActions widget</h3>
+<p>Back on the <strong>DetailsPage</strong> widget, under the <strong>Expanded</strong> widget we created earlier to hold the title and description, let&#39;s add the placeholder widget instance; let&#39;s call it <strong>DetailsBottomActions</strong>:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/dd6ad10664118d70.png"></p>
+<aside class="warning"><p>The <strong>DetailsBottomActions</strong> widget doesn&#39;t exist yet - let&#39;s create it now!</p>
+</aside>
+<p>In the <strong>WIDGETS</strong> section (if you created, otherwise, anywhere at the bottom of this file), create a new class called <strong>DetailsBottomActions</strong> (just like our placeholder above).</p>
+<p>Make the class extend <a href="https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html" target="_blank"><strong>StatelessWidget</strong></a>, and as customary, override its <strong>build</strong> method, returning a temporary <strong>Text</strong> widget, just to make sure the placement is fine:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/47c9b32958c8066e.png"></p>
+<p>Doing a dry-run on the code that we just wrote by hitting <strong>Run</strong> on DartPad, we see the <strong>Text</strong> widget at the bottom, confirming its hooked up:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/89979c1ab547b1ea.png"></p>
+<h3 is-upgraded>Working on the Layout</h3>
+<p>Let&#39;s start by replacing the dummy <strong>Text</strong> widget we placed for testing, with a <strong>Padding</strong> widget, since we want our bottom actions panel to match on spacing around itself with the other components above. Add left, right and bottom padding, 20px:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/7d0ef22de6a156b7.png"></p>
+<p>Recall from the image above, we have two buttons, laid out horizontally. For that, we need to set a <strong>Row</strong> widget as the child of this <strong>Padding</strong> widget; initialize its <strong>children</strong> property with an empty array:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/e8f3884a81b59af1.png"></p>
+<p>Now, take a closer look at our bottom actions panel. The left button (<strong>Book Now</strong>) is wider than the button on the right (button with the tag icon). We&#39;ll do the same approach as in previous occasions: the widget we want it to take most of the space inside a <strong>Row</strong> or <strong>Column</strong>, we wrap it inside an <a href="https://api.flutter.dev/flutter/widgets/Expanded-class.html" target="_blank"><strong>Expanded</strong></a> panel.</p>
+<p>Right away, let&#39;s set the stage for these two buttons; inside the <strong>Row</strong> widget, add two children: an <strong>Expanded</strong> widget with a <strong>Container</strong> widget as its child, and right underneath it, an empty <strong>Container</strong>, as follows:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/ddba3c99d846bafb.png"></p>
+<h3 is-upgraded>Creating a Custom Button using core and Material widgets</h3>
+<aside class="special"><p>From this point forward, we&#39;ll focus on the the <strong>Book Now</strong> button from the bottom actions panel, from the <strong>Expanded</strong> widget structure and work our way in.</p>
+</aside>
+<p>For the <strong>Book Now</strong> button, we won&#39;t use one of the buttons that come with the Material library - we&#39;ll create own own from scratch, even with an ink well effect and all.</p>
+<p>Let&#39;s proceed.</p>
+<p>Replace the empty <strong>Container</strong> widget we added inside the <strong>Expanded</strong> widget (we&#39;ll be adding it again down the hierarchy) by a <strong>Material</strong> widget. This widget is very versatile and is at the core of the material design methaphor.</p>
+<p>We&#39;ll use it for clipping the edges of its widget subtree, by setting its <strong>borderRadius</strong> property to <strong>BorderRadius.circular(15)</strong>.</p>
+<p>Assign a color to the <strong>Material</strong> widget as well, so set its <strong>color</strong> property to our global <strong>mainColor</strong> defined earlier:</p>
+<aside class="special"><p>See also <a href="https://api.flutter.dev/flutter/widgets/ClipRRect-class.html" target="_blank"><strong>ClipRRect</strong></a> as an alternative for clipping a widget subtree).</p>
+</aside>
+<p>If you take it for a spin right now, you won&#39;t see anything - because this widget has no <strong>child</strong> to display at the moment.</p>
+<p class="image-container"><img alt="DetailsPage" src="img/7b10f19f099bd5d.png"></p>
+<p>Another widget that is instrumental in bringing cool touch effects to your buttons is the <a href="https://api.flutter.dev/flutter/material/InkWell-class.html" target="_blank"><strong>InkWell</strong></a> widget, which is a rectangular area (part of the Material Design library) that responds to touch. You don&#39;t only apply it to buttons, you can apply it to other touch-capable surfaces.</p>
+<aside class="special"><p>The InkWell does not work unless it has a Material widget as its parent, since in the Material widget is where the ink reactions are actually painted. Keep this in mind!</p>
+</aside>
+<p>Add an <strong>InkWell</strong> widget as the child of the <strong>Material</strong> widget. Set the following properties on the <strong>InkWell</strong> as follows:</p>
+<ul>
+<li>hightlightColor: for when the button gets highlighted. Set it to ***Colors.white.withOpacity(0.2)</li>
+<li>splashColor: for when you press, it shows an ink splash effect using the point of pressure as a reference. Set it also to ***Colors.white.withOpacity(0.2)</li>
+<li>onTap: Another advantage of the <strong>InkWell</strong> is that it provides tap / touch events. Set it to an empty callback for now.</li>
+</ul>
+<p>Your code should look as follows:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/fcc9ea0f8ae0a8ad.png"></p>
+<aside class="warning"><p>No, you can&#39;t see anything yet! Why? because both the Material and InkWell require content to render appropriately. We&#39;ll do that now.</p>
+</aside>
+<p>After all that prep work to be able to have a custom button, let&#39;s add what the actual content for the button will be.</p>
+<p>Let&#39;s add a <strong>Container</strong> widget, with padding of 21px all around. As its child. let&#39;s add a <strong>Text</strong> widget with the text of &#34;Book Now&#34;. Set its <strong>textAlign</strong> property to <strong>TextAlign.center</strong>, and set its color to white via the <strong>TextStyle</strong> color properly. You may have noticed I didn&#39;t add a color to the <strong>Container</strong> widget. I don&#39;t have to, because the <strong>Material</strong> widget, since it&#39;s the topmost parent, is the one that holds the background color - the <strong>Container</strong> is just a mere container for holding the <strong>Text</strong> widget and adding the padding.</p>
+<p>If you do the above steps, your code should look as follows:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/49576bf5474131f7.png"></p>
+<p>Thanks for being patient! Now if you hit <strong>Run</strong> on DartPad, you definitely see something... The fully created custom button! Test the experience when you hover, and press on any spot within the button, and you&#39;ll see the ink well in effect. Neat!</p>
+<p class="image-container"><img alt="DetailsPage" src="img/f0c175d81e4bef73.png"></p>
+<aside class="special"><p>You can make this custom button into its own widget - just create a separate class and return this widget structure on its <strong>build</strong> method. Expose some properties so as to make it customizable and configurable (color, label, tap event).</p>
+</aside>
+<p>Let&#39;s wrap up this widget by adding the remaining button on the right side of this panel.</p>
+<p>Let&#39;s utilize that empty <strong>Container</strong> widget under the <strong>Expanded</strong> widget we created earlier. On this same container, set some of its properties with the following values:</p>
+<ul>
+<li>margin: 10px, only on the left</li>
+<li>padding: 15px all around</li>
+<li>decoration: use a BoxDecoration object for the following:  <ul>
+<li>borderRadius: give it rounded edges, 15px</li>
+<li>color: white</li>
+<li>border: add a border all around, color <strong>mainColor</strong> and 2px width</li>
+</ul>
+</li>
+</ul>
+<p>Follow the specs above and your code should look as follows:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/6fd2172000282993.png"></p>
+<p>Now, all we have to do is add a child to this <strong>Container</strong> widget - the tag icon. We&#39;ll use an <strong>Icon</strong> widget (<strong><em>Icons.turned_in_not</em></strong>), color <strong>mainColor</strong> and 25px in size:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/bbb5e70f4dcb0db7.png"></p>
+<p>If you run the code in DartPad now, you will see the bottom actions bar fully in place, matching our design:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/b05cc7150532a37c.png"></p>
+<p>Feel proud of what you&#39;ve built so far! With no special widgets, no imported libraries other than the Material, and some core Flutter widgets, we were able to build pretty cool interfaces in a short amount of time. Kudos to you!</p>
+<p>Click <strong>Next</strong> so we can wrap up this workshop by bringing it all together.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Bringing it all together" duration="0">
+        <p>Throughout this workshop, we focused on building layouts and structures in Flutter using core widgets on top of the Material library with ease and speed. It allowed us to build three screens: a <strong>SplashPage</strong> widget screent that loads initially, and after a duration, shows a landing page (<strong>MountsApp</strong>). Now we just finished developing a <strong>DetailsPage</strong> widget that will show the details of any selected item in the <strong>MountsApp</strong> page widget.</p>
+<p class="image-container"><img alt="DetailsPage" src="img/57d7cf983e73f560.png"></p>
+<p>Wait, we haven&#39;t done that yet! We need to add the capability of tapping / clicking on one of the items in the <strong>AppMountListView</strong>, which should then navigate us to the <strong>DetailsPage</strong> and show us the details of that selected mount.</p>
+<p>How will we accomplish that? We&#39;ll do it in a simple manner: we&#39;ll pass the index of the selected item in the list view to the <strong>DetailsPage</strong> via its constructor, and then on the other end, we grab the model that corresponds to that index.</p>
+<h3 is-upgraded>Edit the <strong>DetailsPage</strong> constructor to take an index</h3>
+<p>Navigate to the body of the <strong>DetailsPage</strong> class. Create a property called <strong>mount</strong>, type *<strong>MountModel</strong>. Create a constructor that takes the same named parameter as such:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/3a429196ed89bfcc.png"></p>
+<p>Now, remember the local variable we created inside the <strong>DetailsPage</strong>&#39;s <strong>build</strong> method (<strong>selectedItem</strong>). We have it hard-coded to always pull the item at index 0 from the <strong>mountItems</strong> collection. To minimize the amount of refactoring, just change it from pulling the first value out of the <strong>mountItems</strong> collection to just assigning the injected model to <strong>selectedItem</strong>, as such:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/9508f0eaea53a649.png"></p>
+<p>Great. Things are hooked up on one end. Now, let&#39;s go to the <strong>AppMountListView</strong> widget. Locate the <strong>ListView.builder</strong> callback method - <strong><em>itemBuilder</em></strong>.</p>
+<p>In the returning <strong>Container</strong> widget, refactor it by wrapping this container inside a <a href="https://api.flutter.dev/flutter/widgets/GestureDetector-class.html" target="_blank"><strong>GestureDetector</strong></a> - a very handy widget for detecting gestures. In our case we want to intercept a tap on one of the <strong>ListView</strong> container items:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/9c8dceebae02bf4d.png"></p>
+<p>Let&#39;s tap into the <strong>onTap</strong> event available in the <strong>GestureDetector</strong> widget, since we want to capture tap events on each item. In this event, perform a navigation to our <strong>DetailsPage</strong> widget, passing the <strong>currentMount</strong> value corresponding to the current iteration:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/7d0ed1933ee4cda7.png"></p>
+<p>As a final step, in the <strong>main</strong> method at the top of the file, reset the <strong>home</strong> property in the <strong>MaterialApp</strong> widget back to pointing to the <strong>SplashPage</strong> widget, so we can test the whole workflow:</p>
+<p class="image-container"><img alt="DetailsPage" src="img/b8957fe8f13983a.png"></p>
+<p>Running it one last time by hitting <strong>Run</strong> on DartPad, and it will produce the full-fledged app! While taking it for a spin, ensure that the following are taking place:</p>
+<ul>
+<li>Test that the <strong>SplashPage</strong> shows for a few seconds</li>
+<li>The <strong>MountsApp</strong> landing page shows.</li>
+<li>You are able to scroll through the list of mounts horizontally</li>
+<li>You are able to scroll through the list of categories under the mounts list</li>
+<li>You are able to tap the various bottom bar buttons and they change accordingly</li>
+<li>Tapping on one of the mount list items takes you to the <strong>DetailsPage</strong> widget, showing you the details of the item you just selected</li>
+<li>You are able to go back to the previous page (<strong>MountsApp</strong>) by clicking on the top left corner navigation chevron.</li>
+<li>Do it all over again with other selections.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Wrap-up" duration="0">
+        <p>Congrats on completing the three Flutter codelabs where we touch on the following:</p>
+<ul>
+<li>Create Flutter User interfaces with ease</li>
+<li>Common Flutter Layout strategies using just core widgets</li>
+<li>Creating custom Flutter widgets and achieve widget composition</li>
+<li>Creating Dart models to mock up app data</li>
+<li>Import network images</li>
+<li>Using Material Icon fonts</li>
+<li>Basic Navigation strategies</li>
+</ul>
+<p>Hope you&#39;ve enjoyed these codelabs as much as I had putting them together.</p>
+<h3 is-upgraded>Please don&#39;t forget to follow me on social media:</h3>
+<ul>
+<li>On Twitter (<a href="https://www.twitter.com/drcoderz" target="_blank">@drcoderz</a>)</li>
+<li>On YouTube (<a href="https://www.youtube.com/channel/UCKsp3r1ERjCpKJtD2n5WtPg" target="_blank">Roman Just Codes</a>)</li>
+<li>On My <a href="https://romanjustcodes.web.app/#/home" target="_blank">Personal Portfolio</a></li>
+<li>On <a href="https://medium.com/@romanejaquez" target="_blank">Medium</a></li>
+</ul>
+<p>Thanks for joining me on this Flutter journey! Cheers!!!!</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Complete Code" duration="0">
+        <p>In case you fell behind on this codelab, below is the whole code for this codelab in a way you can copy / paste directly into DartPad:</p>
+<pre><code language="language-flutter" class="language-flutter">import &#39;package:flutter/material.dart&#39;;
+
+//-----GLOBAL VARIABLES-----
+final Color mainColor = Color(0xFFFF5656);
+
+final List&lt;MountModel&gt; mountItems = [
+  MountModel(
+      path:
+          &#39;https://sa.kapamilya.com/absnews/abscbnnews/media/2021/afp/01/17/20210116-mt-semeru-indonesia-ash-afp-s.jpg&#39;,
+      name: &#39;Mount Semeru&#39;,
+      description:
+          &#39;Semeru, or Mount Semeru, is an active volcano in East Java, Indonesia. It is located in the subduction zone, where the Indo-Australia plate subducts under the Eurasia plate. It is the highest mountain on the island of Java.&#39;,
+      location: &#39;East Java&#39;),
+  MountModel(
+      path:
+          &#39;https://media-cdn.tripadvisor.com/media/photo-s/04/a5/6f/ce/dsc-5622jpg.jpg&#39;,
+      name: &#39;Mount Merbaru&#39;,
+      description:
+          &#39;Mount Merbabu is a dormant stratovolcano in Central Java province on the Indonesian island of Java. The name Merbabu could be loosely translated as Mountain of Ash from the Javanese combined words; Meru means mountain and awu or abu means ash.&#39;,
+      location: &#39;Central Java&#39;),
+  MountModel(
+      path: &#39;https://cdn.dlmag.com/wp-content/uploads/2019/07/maunaloa1.jpg&#39;,
+      name: &#39;Mauna Loa&#39;,
+      description:
+          &#39;Mauna Loa is one of five volcanoes that form the Island of Hawaii in the U.S. state of Hawai in the Pacific Ocean. The largest subaerial volcano in both mass and volume, Mauna Loa has historically been considered the largest volcano on Earth, dwarfed only by Tamu Massif.&#39;,
+      location: &#39;Hawaii&#39;),
+  MountModel(
+      path:
+          &#39;https://cdn.images.express.co.uk/img/dynamic/78/590x/mount-vesuvius-1100807.jpg&#39;,
+      name: &#39;Mount Vesuvius&#39;,
+      description:
+          &#39;Mount Vesuvius is a somma-stratovolcano located on the Gulf of Naples in Campania, Italy, about 9 km east of Naples and a short distance from the shore. It is one of several volcanoes which form the Campanian volcanic arc.&#39;,
+      location: &#39;Italy&#39;),
+  MountModel(
+      path:
+          &#39;https://upload.wikimedia.org/wikipedia/commons/0/04/PopoAmeca2zoom.jpg&#39;,
+      name: &#39;Mount Popocatépetl&#39;,
+      description:
+          &#39;Popocatépetl is an active stratovolcano located in the states of Puebla, Morelos, and Mexico in central Mexico. It lies in the eastern half of the Trans-Mexican volcanic belt. At 5,426 m it is the second highest peak in Mexico, after Citlaltépetl at 5,636 m.&#39;,
+      location: &#39;Mexico&#39;)
+];
+
+final List&lt;CategoryModel&gt; categories = [
+  CategoryModel(category: &#39;Mountain&#39;, icon: Icons.terrain),
+  CategoryModel(category: &#39;Forest&#39;, icon: Icons.park),
+  CategoryModel(category: &#39;Beach&#39;, icon: Icons.beach_access),
+  CategoryModel(category: &#39;Hiking&#39;, icon: Icons.directions_walk)
+];
+
+//-----MAIN METHOD-----
+void main() {
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false, 
+      home: SplashPage()
+    )
+  );
+}
+
+//-----PAGES-----
+// splash page
+class SplashPage extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) =&gt; MountsApp()));
+    });
+
+    return Container(
+      color: mainColor,
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.center,
+            child: Icon(Icons.terrain, color: Colors.white, size: 90),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              margin: EdgeInsets.only(bottom: 80),
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation&lt;Color&gt;(Colors.white)
+              )
+            )
+          )
+        ],
+      )
+    );
+  }
+}
+
+// landing page
+class MountsApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        title: Center(
+          child: Icon(
+            Icons.terrain, 
+            color: mainColor, 
+            size: 40
+          )
+        ),
+        actions: [
+          SizedBox(width: 40, height: 40)
+        ],
+        iconTheme: IconThemeData(color: mainColor)
+      ),
+      drawer: Drawer(
+        child: Container(
+          padding: EdgeInsets.all(30),
+          color: mainColor,
+          alignment: Alignment.bottomLeft,
+          child: Icon(Icons.terrain, color: Colors.white, size: 80)
+        )
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AppHeader(),
+          AppSearch(),
+          Expanded(
+            child: AppMountListView()
+          ),
+          AppCategoryList(),
+          AppBottomBar()
+        ],
+      )
+    );
+  }
+}
+
+// details page
+class DetailsPage extends StatelessWidget {
+
+  MountModel mount;
+
+  DetailsPage(this.mount);
+
+  @override
+  Widget build(BuildContext context) {
+    var selectedItem = mount;
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Column(
+        children: [
+          Expanded(
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(40),
+                bottomRight: Radius.circular(40)
+              ),
+              child: Stack(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(30),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: NetworkImage(selectedItem.path),
+                          fit: BoxFit.cover
+                        )
+                      ),
+                  ),
+                  Positioned.fill(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.transparent,
+                            Colors.black.withOpacity(0.7)
+                          ],
+                          begin: Alignment.center, end: Alignment.bottomCenter
+                        )
+                      )
+                    )
+                  ),
+                  Positioned(
+                    bottom: 30, left: 30, right: 0,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(selectedItem.name,
+                          style: TextStyle(
+                            color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold
+                          )
+                        ),
+                        Text(selectedItem.location,
+                          style: TextStyle(color: Colors.white, fontSize: 20)
+                        ),
+                      ]
+                    )
+                  ),
+                  AppBar(
+                    elevation: 0,
+                    backgroundColor: Colors.transparent,
+                    iconTheme: IconThemeData(color: Colors.white),
+                    title: Center(
+                      child: Icon(Icons.terrain, color: Colors.white, size: 40)
+                    ),
+                    actions: [
+                      Container(
+                        margin: EdgeInsets.only(right: 10),
+                        child: Icon(Icons.pending,color: Colors.white, size: 30)
+                      )
+                    ]
+                  )
+                ],
+              )
+            )
+          ),
+          Expanded(
+            child: Column(
+              children: [
+                DetailsRatingBar(),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                        child: Text(&#39;About ${selectedItem.name}&#39;, 
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold
+                          )
+                        )
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                        child: Text(&#39;${selectedItem.description}&#39;, style: TextStyle(fontSize: 12))
+                      )
+                    ],
+                  )
+                ),
+                DetailsBottomActions()
+              ],
+            )
+          )
+        ],
+      )
+    );
+  }
+}
+
+//-----WIDGETS-----
+
+class AppHeader extends StatelessWidget {  
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(left: 30, top: 30, right: 30),
+      child: Row(
+        children: [
+          ClipOval(
+            child: Image.network(
+              &#39;https://avatars.githubusercontent.com/u/5081804?v=4&#39;,
+              width: 50,
+              height: 50,
+              fit: BoxFit.cover
+            ),
+          ),
+          SizedBox(width: 20),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start, 
+            children: [
+              Text(&#39;Hello, Roman&#39;,
+                style: TextStyle(
+                    color: Colors.black, 
+                    fontWeight: FontWeight.bold
+                )
+              ),
+              Text(&#39;Good Morning&#39;,
+                style: TextStyle(
+                  color: mainColor, 
+                  fontSize: 12
+                )
+              )
+            ]
+          )
+        ],
+      )
+    );
+  }
+}
+
+class AppSearch extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(30),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(&#39;Discover&#39;,
+            style: TextStyle(
+              fontWeight: FontWeight.w900, 
+              fontSize: 25
+            )
+          ),
+          SizedBox(height: 20),
+          Row(
+            children: [
+              Expanded(
+                child: Container(
+                  height: 50,
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(10)
+                  ),
+                  child: Row(children: [
+                      Icon(Icons.search, color: Colors.grey),
+                      SizedBox(width: 10),
+                      Text(&#39;Search&#39;, style: TextStyle(color: Colors.grey))
+                    ]
+                  )
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 10),
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: mainColor,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(Icons.tune, color: Colors.white)
+              )
+            ],
+          )
+        ],
+      )
+    );
+  }
+}
+
+class AppMountListView extends StatelessWidget {
+
+  @override 
+  Widget build(BuildContext context) {
+    return Container(
+      height: 150,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: mountItems.length,
+        itemBuilder: (context, index) {
+          MountModel currentMount = mountItems[index];
+
+          return GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) =&gt; DetailsPage(currentMount))
+              );
+            },
+            child: Container(
+              alignment: Alignment.bottomLeft,
+              padding: EdgeInsets.all(20),
+              margin: EdgeInsets.all(10),
+              width: 150,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                image: DecorationImage(
+                  image: NetworkImage(currentMount.path),
+                  fit: BoxFit.cover
+                )
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(currentMount.name,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold
+                    )
+                  ),
+                  Text(currentMount.location,
+                    style: TextStyle(
+                      color: Colors.white
+                    )
+                  )
+                ]
+              )
+            ),
+          );
+        }
+      )
+    );
+  }
+}
+
+class AppCategoryList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(&#39;Category&#39;,
+                  style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)
+                ),
+                Text(&#39;See More&#39;,
+                  style: TextStyle(color: mainColor,fontSize: 12, fontWeight: FontWeight.bold
+                  )
+                ),
+              ]
+            )
+          ),
+          Container(
+            height: 100,
+            margin: EdgeInsets.only(left: 10),
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: categories.length,
+              itemBuilder: (context, index) {
+
+                CategoryModel currentCategory = categories[index];
+
+                return Container(
+                  width: 100,
+                  margin: EdgeInsets.only(top: 10, right: 10),
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey.withOpacity(0.2), width: 2),
+                    borderRadius: BorderRadius.circular(10)
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(currentCategory.icon, color: mainColor),
+                      Text(currentCategory.category,
+                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold))
+                    ]
+                  )
+                );
+              }
+            )
+          ),
+        ],
+      )
+    );
+  }
+}
+
+class AppBottomBar extends StatefulWidget {
+  @override
+  AppBottomBarState createState() =&gt; AppBottomBarState();
+}
+
+class AppBottomBarState extends State&lt;AppBottomBar&gt; {
+
+  List&lt;AppBottomBarItem&gt; barItems = [
+    AppBottomBarItem(icon: Icons.home, label: &#39;Home&#39;, isSelected: true),
+    AppBottomBarItem(icon: Icons.explore, label: &#39;Explore&#39;, isSelected: false),
+    AppBottomBarItem(icon: Icons.turned_in_not, label: &#39;Tag&#39;, isSelected: false),
+    AppBottomBarItem(icon: Icons.person_outline,label: &#39;Profile&#39;, isSelected: false)
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 20),
+      padding: EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            offset: Offset.zero
+          )
+        ]
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: 
+        List.generate(barItems.length, (index) {
+            AppBottomBarItem currentBarItem = barItems[index];
+
+            Widget barItemWidget;
+
+            if (currentBarItem.isSelected) {
+              barItemWidget = Container(
+                padding: EdgeInsets.only(left: 15, top: 5, bottom: 5, right: 15),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: mainColor
+                ),
+                child: Row(
+                  children: [
+                    Icon(currentBarItem.icon, color: Colors.white),
+                    SizedBox(width: 5),
+                    Text(currentBarItem.label, style: TextStyle(color: Colors.white))
+                  ]
+                )
+              );
+            }
+            else {
+              barItemWidget = IconButton(
+                icon: Icon(currentBarItem.icon, color: Colors.grey),
+                onPressed: () {
+                  setState(() {
+                    barItems.forEach((AppBottomBarItem item) {
+                      item.isSelected = item == currentBarItem;
+                    });
+                  });
+                }
+              );
+            }
+
+            return barItemWidget;
+          }
+        )
+      )
+    );
+  }
+}
+
+class DetailsRatingBar extends StatelessWidget {
+
+  var sampleRatingData = {
+    &#39;Rating&#39;: &#39;4.6&#39;,
+    &#39;Price&#39;: &#39;\$12&#39;,
+    &#39;Open&#39;: &#39;24hrs&#39;
+  };
+  
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: List.generate(
+          sampleRatingData.entries.length,
+          (index) =&gt; Container(
+              padding: EdgeInsets.all(20),
+              margin: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey.withOpacity(0.2), width: 2
+                ),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Column(
+                children: [
+                  Text(sampleRatingData.entries.elementAt(index).key,
+                    style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)
+                  ),
+                  Text(sampleRatingData.entries.elementAt(index).value, style: TextStyle(
+                      color: mainColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15
+                    )
+                  )
+                ]
+              )
+          )
+        )
+      )
+    );
+  }
+}
+
+class DetailsBottomActions extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+      child: Row(
+        children: [
+          Expanded(
+            child: Material(
+              borderRadius: BorderRadius.circular(15),
+              color: mainColor,
+              child: InkWell(
+                highlightColor: Colors.white.withOpacity(0.2),
+                splashColor:Colors.white.withOpacity(0.2),
+                onTap: () {},
+                child: Container(
+                  padding: EdgeInsets.all(21),
+                  child: Text(&#39;Book Now&#39;, textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white)
+                  )
+                ),
+              )
+            )
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 10),
+            padding: EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.white,
+              border: Border.all(color: mainColor, width: 2)
+            ),
+            child: Icon(Icons.turned_in_not, color: mainColor, size: 25)
+          )
+        ]
+      )
+    );
+  }
+}
+
+//----MODELS----
+
+class MountModel {
+  String path;
+  String name;
+  String location;
+  String description;
+
+  MountModel({
+    this.path = &#39;&#39;,
+    this.name = &#39;&#39;,
+    this.location = &#39;&#39;,
+    this.description = &#39;&#39;
+  });
+}
+
+class CategoryModel {
+  String category;
+  IconData? icon;
+
+  CategoryModel({this.category = &#39;&#39;, this.icon});
+}
+
+class AppBottomBarItem {
+  IconData? icon;
+  bool isSelected; 
+  String label;
+
+  AppBottomBarItem({
+    this.icon,
+    this.label = &#39;&#39;,
+    this.isSelected = false
+  });
+}
+</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
