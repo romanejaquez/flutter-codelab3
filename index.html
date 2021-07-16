@@ -131,6 +131,7 @@ Container(
 )
 
 </code></pre>
+<p>Your code should look as follows:</p>
 <p class="image-container"><img alt="DetailsPage" src="img/68cd418ab76bed5a.png"></p>
 <p>Hitting <strong>Run</strong> at this point on DartPad will yield the following result:</p>
 <p class="image-container"><img alt="DetailsPage" src="img/99327a13d95308ed.png"></p>
@@ -192,6 +193,7 @@ Column(
   ]
 )
 </code></pre>
+<p>Your code should look like this now:</p>
 <p class="image-container"><img alt="DetailsPage" src="img/47503fc5a1c1e014.png"></p>
 <p>Testing it on DartPad, it should look like this so far:</p>
 <p class="image-container"><img alt="DetailsPage" src="img/9614fcfb01e9f63a.png"></p>
@@ -314,6 +316,7 @@ decoration: BoxDecoration(
 borderRadius: BorderRadius.circular(20)
 
 </code></pre>
+<p>Your code should look like this:</p>
 <p class="image-container"><img alt="DetailsPage" src="img/962b4cef240e6efa.png"></p>
 <p>As a child of this container, we&#39;ll add a <strong>Column</strong> widget - this column will hold the two <strong>Text</strong> widgets required to display the label (top) and value (bottom).</p>
 <p class="image-container"><img alt="DetailsPage" src="img/ac9fd94b7a32c1a3.png"></p>
@@ -336,7 +339,8 @@ children: [
   ),
 ]
 
-</code></pre>      
+</code></pre>
+<p>Your code should look like this:</p>
 <p class="image-container"><img alt="DetailsPage" src="img/3b5c8cd891635370.png"></p>
 <p>If you run the code as it stands right now, by hitting <strong>Run</strong> on DartPad, you should get the following output in the preview panel:</p>
 <p class="image-container"><img alt="DetailsPage" src="img/cea54ed8e1dcf147.png"></p>
@@ -529,7 +533,7 @@ Container(
 <p>Let&#39;s tap into the <strong>onTap</strong> event available in the <strong>GestureDetector</strong> widget, since we want to capture tap events on each item. In this event, perform a navigation to our <strong>DetailsPage</strong> widget, passing the <strong>currentMount</strong> value corresponding to the current iteration.</p>
 <p>Below the code for the onTap event handler, to avoid extra typing:</p>
 <pre><code language="language-flutter" class="language-flutter">
-// add this inside the GestureDetector
+// add this inside the GestureDetector, as its onTap event:
 
 onTap: () {
   Navigator.of(context).push(
