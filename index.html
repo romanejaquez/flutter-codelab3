@@ -60,6 +60,22 @@
 <aside class="special"><p>It is best practice to group related entities within the same area of code; in our case, I&#39;m adding all pages within a section demarcated by the comment &#34;//—PAGES—&#34; and so on. Add your new class there if possible - otherwise, at the end of the file is fine.</p>
 </aside>
 <p class="image-container"><img alt="DetailsPage" src="img/145cc4b01171f48f.png"></p>
+<p>The boilerplate code for this page is available for copy / paste below:</p>
+<pre><code language="language-flutter" class="language-flutter">
+// Details Page 
+class DetailsPage extends StatelessWidget {
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text('Details Page')      
+      )
+    );
+  }
+}
+
+</code></pre>
 <p>If you run things as they are right now (by hitting <strong>Run</strong> on DartPad), things should look as follows:</p>
 <p class="image-container"><img alt="DetailsPage" src="img/6afd13441a4cb1a.png"></p>
 <h3 is-upgraded>Building the Details Page widget structure</h3>
@@ -98,8 +114,23 @@
 <p>Let&#39;s add the background image. We&#39;ll use a <strong>Container</strong> widget, with the following specs:</p>
 <ul>
 <li>padding: 30px all around</li>
-<li>decoration: use a <strong>BoxDecoration</strong> object to set its <strong>image</strong> property to a <strong>DecorationImage</strong>, which will provide the capability to set a background image to this <strong>Container</strong>. Set the <strong>DecorationImage</strong>&#39;s <strong>image</strong> property to be a <strong>NetworkImage</strong> widget,</li>
+<li>decoration: use a <strong>BoxDecoration</strong> object to set its <strong>image</strong> property to a <strong>DecorationImage</strong>, which will provide the capability to set a background image to this <strong>Container</strong>. Set the <strong>DecorationImage</strong>&#39;s <strong>image</strong> property to be a <strong>NetworkImage</strong> widget.</li>
 </ul>
+<p>Here's the code for that Container, to save you some typing:</p>
+<pre><code language="language-flutter" class="language-flutter">
+// top Container widget
+
+Container(
+  padding: EdgeInsets.all(30),
+  decoration: BoxDecoration(
+    image: DecorationImage(
+      image: NetworkImage(selected.path),
+      fit: BoxFit.cover
+    )
+  )
+)
+
+</code></pre>
 <p class="image-container"><img alt="DetailsPage" src="img/68cd418ab76bed5a.png"></p>
 <p>Hitting <strong>Run</strong> at this point on DartPad will yield the following result:</p>
 <p class="image-container"><img alt="DetailsPage" src="img/99327a13d95308ed.png"></p>
@@ -119,6 +150,23 @@
 <li>begin: <strong><em>Alignment.center</em></strong> (so the gradient starts at the center of the container)</li>
 <li>end: <strong><em>Alignment.bottomCenter</em></strong> (so the gradient ends at the bottom / center of the container)</li>
 </ul>
+<p>Add the Container with the <strong>LinearGradient</strong> as decoration inside the <strong>Positioned.fill()</strong> widget; code provided below:</p>
+<pre><code language="language-flutter" class="language-flutter">
+// add this code inside the Positioned.fill(), as a child:
+child: Container(
+  padding: EdgeInsets.all(30),
+  decoration: BoxDecoration(
+    gradient: LinearGradient(
+      colors: [
+        Colors.transparent,
+        Colors.black.withOpacity(0.7)
+      ],
+      begin: Alignment.center, end: Alignment.bottomCenter
+    )
+  )
+)
+
+</code></pre>
 <p>Your code should look like this afterwards:</p>
 <p class="image-container"><img alt="DetailsPage" src="img/ccc3289a910720f8.png"></p>
 <p>Now, lets add the text on top of the gradient.</p>
@@ -128,6 +176,22 @@
 <p>The column&#39;s children will be two <strong>Text</strong> widgets, left aligned on the column.</p>
 <p>First <strong>Text</strong> widget will hold the name of the selected item (from the local variable <strong><em>selectedItem.name</em></strong>), with font size of 20px, color white, and font weight of bold.</p>
 <p>Second <strong>Text</strong> widget will hold the location of the selected item (from <strong><em>selectedItem.location</em></strong>), with font size of 20px, and color white.</p>
+<p>Replace the Column widget above by the code provided below:</p>
+<pre><code language="language-flutter" class="language-flutter">
+// replace Column widget:
+
+Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    Text(selectedItem.name,
+      style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold)    
+    ),
+    Text(selectedItem.location,
+      style: TextStyle(color: Colors.white, fontSize: 20)    
+    ),
+  ]
+)
+</code></pre>
 <p class="image-container"><img alt="DetailsPage" src="img/47503fc5a1c1e014.png"></p>
 <p>Testing it on DartPad, it should look like this so far:</p>
 <p class="image-container"><img alt="DetailsPage" src="img/9614fcfb01e9f63a.png"></p>
@@ -191,7 +255,21 @@
 <aside class="warning"><p>Remember not to worry about the squiggly red line under it - this widget doesn&#39;t exist yet - we&#39;ll create it now.</p>
 </aside>
 <p>Create a class under the <strong>WIDGETS</strong> section (if you didn&#39;t create this section, you can add it at the end of the file) and call it <strong>DetailsRatingBar</strong> as well. Override its <strong>build</strong> method and return a <strong>Container</strong> widget with a <strong>Text</strong> widget as a child; add the content &#34;Details Rating Bar&#34; to the <strong>Text</strong> widget:</p>
-<p class="image-container"><img alt="DetailsPage" src="img/bdec71a49ae6c02.png"></p>
+<p>Boilerplate code for this widget below, for copy / pasting:</p>
+<pre><code language="language-flutter" class="language-flutter">
+// details rating bar widget
+
+class DetailsRatingBar extends StatelessWidget {
+  
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text('Details Rating Bar')
+    );
+  }
+}
+
+</code></pre>
 <p>If you hit <strong>Run</strong> on DartPad, you should see the following:</p>
 <p class="image-container"><img alt="DetailsPage" src="img/41042f59651e918d.png"></p>
 <h3 is-upgraded>Creating a quick model to feed this widget with data</h3>
@@ -206,7 +284,18 @@
 </aside>
 <p class="image-container"><img alt="DetailsPage" src="img/f306485b4ef74444.png"></p>
 <p>Let&#39;s populate the children of the <strong>Row</strong> widget based on the key-value pair dictionary we created above, and loop through its entries.</p>
-<p>Use the <a href="https://api.flutter.dev/flutter/dart-core/List/List.generate.html" target="_blank"><strong>List.generate</strong></a> constructor to facilitate things; use the <strong>sampleRatingData.values.length</strong> as the size of the list to loop against, and in the callback, return an empty <strong>Container</strong> widget as a placeholder:</p>
+<p>Use the <a href="https://api.flutter.dev/flutter/dart-core/List/List.generate.html" target="_blank"><strong>List.generate</strong></a> constructor to facilitate things; use the <strong>sampleRatingData.values.length</strong> as the size of the list to loop against, and in the callback, return an empty <strong>Container</strong> widget as a placeholder.</p>
+<p>As the Row's children property, use the code provided below - copy / paste it:</p>
+<pre><code language="language-flutter" class="language-flutter">
+// list generate utility method - add the following code inside the Row widget created above
+
+children: List.generate(
+  sampleRatingData.entries.length,
+  (index) => Container()
+)
+
+</code></pre>
+<p>Your code should look as follows:</p>
 <p class="image-container"><img alt="DetailsPage" src="img/9f7220c3bf85b43f.png"></p>
 <p>Now, for each of the entries of the <strong>sampleRatingData</strong>, we&#39;ll generate a <strong>Container</strong> widget. Let&#39;s use the <strong>Container</strong> widget returned by this callback method and continue building on its structure.</p>
 <p>To this container, add padding of 20px all around, and margin of 10px all around as well:</p>
@@ -214,11 +303,40 @@
 <p>We want to add border all around this <strong>Container</strong>, as well as rounded corners, via its <strong>decoration</strong> property:</p>
 <aside class="special"><p>From this point on, we&#39;ll focus on the widget structure of the returned <strong>Container</strong> from the <strong>List.generate</strong>&#39;s callback.</p>
 </aside>
+<p>You can grab the code below for adding both decoration and borderRadius to the Container widget:</p>
+<pre><code language="language-flutter" class="language-flutter">
+// inside the Container...
+
+decoration: BoxDecoration(
+  border: Border.all(color: Colors.grey.withOpacity(0.2),
+  width: 2
+),
+borderRadius: BorderRadius.circular(20)
+
+</code></pre>
 <p class="image-container"><img alt="DetailsPage" src="img/962b4cef240e6efa.png"></p>
 <p>As a child of this container, we&#39;ll add a <strong>Column</strong> widget - this column will hold the two <strong>Text</strong> widgets required to display the label (top) and value (bottom).</p>
 <p class="image-container"><img alt="DetailsPage" src="img/ac9fd94b7a32c1a3.png"></p>
 <p>Add the top <strong>Text</strong> widget and feed the current entry&#39;s <strong>key</strong>, color black, and bold.</p>
 <p>The bottom <strong>Text</strong> widget will get the current entry&#39;s <strong>value</strong>, with color of <strong>mainColor</strong>, font size of 15px and font weight of bold:</p>
+<p>Below the code for the Column's children - the two Text widgets for key and value:</p>
+<pre><code language="language-flutter" class="language-flutter">
+// replace the Column widget's children with the code below:
+
+children: [
+  Text(sampleRatingData.entries.elementAt(index).key,
+    style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)    
+  ),
+  Text(sampleRatingData.entries.elementAt(index).value,
+    style: TextStyle(
+      color: mainColor, 
+      fontWeight: FontWeight.bold,
+      fontSize: 15
+    )    
+  ),
+]
+
+</code></pre>      
 <p class="image-container"><img alt="DetailsPage" src="img/3b5c8cd891635370.png"></p>
 <p>If you run the code as it stands right now, by hitting <strong>Run</strong> on DartPad, you should get the following output in the preview panel:</p>
 <p class="image-container"><img alt="DetailsPage" src="img/cea54ed8e1dcf147.png"></p>
@@ -249,6 +367,21 @@
 </li>
 </ul>
 <p>While displaying the <strong>selectedItem.name</strong> content, use <strong><em>variable interpolation</em></strong> and add the text &#34;About&#34; in front of whatever comes out of the <strong>name</strong> property (i.e. ‘About ${selectedItem.name}&#39;).</p>
+<p>Below the code for the Text widget:</p>
+<pre><code language="language-flutter" class="language-flutter">
+// Text widget with the name title
+
+Text('About ${selectedItem.name}',
+ textAlign: TextAlign.left,
+ style: TextStyle(
+   color: Colors.black,
+   fontSize: 20,
+   fontWeight: FontWeight.bold
+ )
+)
+
+</code></pre>  
+<p>Your code should look as follows:</p>
 <p class="image-container"><img alt="DetailsPage" src="img/2b8277e56260b0bc.png"></p>
 <p>To give it some breathing room, wrap the <strong>Text</strong> widget inside a <strong>Padding</strong> widget, with left, right and bottom padding of 20px:</p>
 <p class="image-container"><img alt="DetailsPage" src="img/f192487a44f44c0c.png"></p>
@@ -274,7 +407,19 @@
 </aside>
 <p>In the <strong>WIDGETS</strong> section (if you created, otherwise, anywhere at the bottom of this file), create a new class called <strong>DetailsBottomActions</strong> (just like our placeholder above).</p>
 <p>Make the class extend <a href="https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html" target="_blank"><strong>StatelessWidget</strong></a>, and as customary, override its <strong>build</strong> method, returning a temporary <strong>Text</strong> widget, just to make sure the placement is fine:</p>
-<p class="image-container"><img alt="DetailsPage" src="img/47c9b32958c8066e.png"></p>
+<p>Below the boilerplate code for the DetailsBottomActions Widget, in case you want to save some keystrokes:</p>
+<pre><code language="language-flutter" class="language-flutter">
+// DetailsBottomActions Widget
+
+class DetailsBottomActions extends StatelessWidget {
+  
+  @override
+  Widget build(BuildContext context) {
+    return Text('Bottom Actions')
+  }
+}
+
+</code></pre>
 <p>Doing a dry-run on the code that we just wrote by hitting <strong>Run</strong> on DartPad, we see the <strong>Text</strong> widget at the bottom, confirming its hooked up:</p>
 <p class="image-container"><img alt="DetailsPage" src="img/89979c1ab547b1ea.png"></p>
 <h3 is-upgraded>Working on the Layout</h3>
@@ -306,6 +451,17 @@
 <li>splashColor: for when you press, it shows an ink splash effect using the point of pressure as a reference. Set it also to ***Colors.white.withOpacity(0.2)</li>
 <li>onTap: Another advantage of the <strong>InkWell</strong> is that it provides tap / touch events. Set it to an empty callback for now.</li>
 </ul>
+<p>Below the code for the InkWell widget, ready to be added as a child of the Material widget:</p>
+<pre><code language="language-flutter" class="language-flutter">
+// add as child of the Material widget:
+
+child: InkWell(
+  highlightColor: Colors.white.withOpacity(0.2),
+  splashColor: Colors.white.withOpacity(0.2),
+  onTap: () {}
+)
+
+</code></pre>    
 <p>Your code should look as follows:</p>
 <p class="image-container"><img alt="DetailsPage" src="img/fcc9ea0f8ae0a8ad.png"></p>
 <aside class="warning"><p>No, you can&#39;t see anything yet! Why? because both the Material and InkWell require content to render appropriately. We&#39;ll do that now.</p>
@@ -330,7 +486,22 @@
 </ul>
 </li>
 </ul>
-<p>Follow the specs above and your code should look as follows:</p>
+<p>Below the code for this custom Container, to avoid extra typing:</p>
+<pre><code language="language-flutter" class="language-flutter">
+// Container for the button on the right side
+
+Container(
+  margin: EdgeInsets.only(left: 10),
+  padding: EdgeInsets.all(15),
+  decoration: BoxDecoration(
+    borderRadius: BorderRadius.circular(15),
+    color: Colors.white,
+    border: Border.all(color: mainColor, width: 2)
+  )
+)
+
+</code></pre> 
+<p>Follow the specs and code above and your code should look as follows:</p>
 <p class="image-container"><img alt="DetailsPage" src="img/6fd2172000282993.png"></p>
 <p>Now, all we have to do is add a child to this <strong>Container</strong> widget - the tag icon. We&#39;ll use an <strong>Icon</strong> widget (<strong><em>Icons.turned_in_not</em></strong>), color <strong>mainColor</strong> and 25px in size:</p>
 <p class="image-container"><img alt="DetailsPage" src="img/bbb5e70f4dcb0db7.png"></p>
@@ -355,7 +526,18 @@
 <p>Great. Things are hooked up on one end. Now, let&#39;s go to the <strong>AppMountListView</strong> widget. Locate the <strong>ListView.builder</strong> callback method - <strong><em>itemBuilder</em></strong>.</p>
 <p>In the returning <strong>Container</strong> widget, refactor it by wrapping this container inside a <a href="https://api.flutter.dev/flutter/widgets/GestureDetector-class.html" target="_blank"><strong>GestureDetector</strong></a> - a very handy widget for detecting gestures. In our case we want to intercept a tap on one of the <strong>ListView</strong> container items:</p>
 <p class="image-container"><img alt="DetailsPage" src="img/9c8dceebae02bf4d.png"></p>
-<p>Let&#39;s tap into the <strong>onTap</strong> event available in the <strong>GestureDetector</strong> widget, since we want to capture tap events on each item. In this event, perform a navigation to our <strong>DetailsPage</strong> widget, passing the <strong>currentMount</strong> value corresponding to the current iteration:</p>
+<p>Let&#39;s tap into the <strong>onTap</strong> event available in the <strong>GestureDetector</strong> widget, since we want to capture tap events on each item. In this event, perform a navigation to our <strong>DetailsPage</strong> widget, passing the <strong>currentMount</strong> value corresponding to the current iteration.</p>
+<p>Below the code for the onTap event handler, to avoid extra typing:</p>
+<pre><code language="language-flutter" class="language-flutter">
+// add this inside the GestureDetector
+
+onTap: () {
+  Navigator.of(context).push(
+    MaterialPageRoute(builder: (context) => DetailsPage(currentMount))
+  );
+}
+
+</code></pre> 
 <p class="image-container"><img alt="DetailsPage" src="img/7d0ed1933ee4cda7.png"></p>
 <p>As a final step, in the <strong>main</strong> method at the top of the file, reset the <strong>home</strong> property in the <strong>MaterialApp</strong> widget back to pointing to the <strong>SplashPage</strong> widget, so we can test the whole workflow:</p>
 <p class="image-container"><img alt="DetailsPage" src="img/b8957fe8f13983a.png"></p>
