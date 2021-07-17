@@ -124,7 +124,7 @@ Container(
   padding: EdgeInsets.all(30),
   decoration: BoxDecoration(
     image: DecorationImage(
-      image: NetworkImage(selected.path),
+      image: NetworkImage(selectedItem.path),
       fit: BoxFit.cover
     )
   )
@@ -371,18 +371,20 @@ children: [
 </li>
 </ul>
 <p>While displaying the <strong>selectedItem.name</strong> content, use <strong><em>variable interpolation</em></strong> and add the text &#34;About&#34; in front of whatever comes out of the <strong>name</strong> property (i.e. ‘About ${selectedItem.name}&#39;).</p>
-<p>Below the code for the Text widget:</p>
+<p>Below the code for the Text widget, added as the first child of the Column's children property:</p>
 <pre><code language="language-flutter" class="language-flutter">
 // Text widget with the name title
 
-Text('About ${selectedItem.name}',
- textAlign: TextAlign.left,
- style: TextStyle(
-   color: Colors.black,
-   fontSize: 20,
-   fontWeight: FontWeight.bold
- )
-)
+children: [
+  Text('About ${selectedItem.name}',
+   textAlign: TextAlign.left,
+   style: TextStyle(
+     color: Colors.black,
+     fontSize: 20,
+     fontWeight: FontWeight.bold
+   )
+  )
+]
 
 </code></pre>  
 <p>Your code should look as follows:</p>
@@ -419,7 +421,7 @@ class DetailsBottomActions extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    return Text('Bottom Actions')
+    return Text('Bottom Actions');
   }
 }
 
